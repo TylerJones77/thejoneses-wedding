@@ -572,7 +572,7 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
 <script>
 (function () {
   /* Paste the Apps Script web app URL here to make RSVPs and song requests live. */
-  const FORM_ENDPOINT = "";
+  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwhRyqy6VEk9KXPNLLbfyI6ip3NbPDKOzk_xp24EfXBSen7YJbZ4dxhzuVaIKxWBySPXQ/exec";
   function send(data) {
     if (!FORM_ENDPOINT) return Promise.resolve();
     return fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(data) });
