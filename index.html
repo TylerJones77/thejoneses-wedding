@@ -473,7 +473,7 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
       </div>
       <div class="field"><label for="rsvp-note">A note for Tyler &amp; Mia</label><textarea id="rsvp-note" placeholder="Optional"></textarea></div>
       <div class="form-foot">
-        <span class="note">Preview: replies will save to your RSVP sheet once the site is live.</span>
+        <span class="note preview-note">Preview: replies will save to your RSVP sheet once the site is live.</span>
         <button class="btn" type="submit">Send RSVP</button>
       </div>
     </form>
@@ -500,7 +500,7 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
     </label>
     <input type="file" id="photoInput" accept="image/*" multiple hidden>
     <div class="gallery" id="gallery"></div>
-    <p style="text-align:center;margin-top:18px"><span class="note">Preview: photos stay on your device for now. At launch they'll go to a shared album.</span></p>
+    <p style="text-align:center;margin-top:18px"><span class="note preview-note">Preview: photos stay on your device for now. At launch they'll go to a shared album.</span></p>
   </div>
 </section>
 
@@ -571,6 +571,13 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 (function () {
+  /* Paste the Apps Script web app URL here to make RSVPs and song requests live. */
+  const FORM_ENDPOINT = "";
+  function send(data) {
+    if (!FORM_ENDPOINT) return Promise.resolve();
+    return fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(data) });
+  }
+  if (FORM_ENDPOINT) document.querySelectorAll("#rsvp .preview-note").forEach(n => n.hidden = true);
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const NS = "http://www.w3.org/2000/svg";
   const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -844,7 +851,15 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
     document.getElementById("rsvpThanksMsg").textContent = yes
       ? `We've got you down for ${n}, ${name.value.trim().split(" ")[0]}. See you in Boise on June 26.`
       : `We'll miss you, ${name.value.trim().split(" ")[0]}. Thank you for letting us know.`;
-    rsvp.hidden = true; thanks.hidden = false;
+    const btn = rsvp.querySelector("button[type=submit]");
+    btn.disabled = true; btn.textContent = "Sending…";
+    send({
+      type: "rsvp", name: name.value.trim(), email: document.getElementById("rsvp-email").value.trim(),
+      attending: yes ? "yes" : "no", count: yes ? n : "0",
+      diet: document.getElementById("rsvp-diet").value.trim(), note: document.getElementById("rsvp-note").value.trim()
+    }).then(() => { rsvp.hidden = true; thanks.hidden = false; })
+      .catch(() => { document.getElementById("rsvpThanksMsg").textContent = ""; btn.textContent = "Couldn't send. Check your connection and try again."; })
+      .finally(() => { btn.disabled = false; if (btn.textContent === "Sending…") btn.textContent = "Send RSVP"; });
   });
   document.getElementById("rsvpAgain").addEventListener("click", () => { thanks.hidden = true; rsvp.hidden = false; });
 
@@ -893,6 +908,7 @@ footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0
     const t = document.getElementById("song-title"), a = document.getElementById("song-artist"), by = document.getElementById("song-from");
     if (!t.value.trim() || !a.value.trim()) { (t.value.trim() ? a : t).focus(); return; }
     songs.unshift({ t: t.value.trim(), a: a.value.trim(), by: by.value.trim() });
+    send({ type: "song", title: t.value.trim(), artist: a.value.trim(), by: by.value.trim() }).catch(() => {});
     t.value = ""; a.value = ""; by.value = "";
     renderSongs();
   });
