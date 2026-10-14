@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Joneses</title>
+<meta name="description" content="Tyler & Mia are getting married. June 26, 2027 in Boise, Idaho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Jost:wght@400;500&display=swap">
+<style>
+/* Layout: a single garden path down the page — centered invitation hero, then alternating open sections framed by hand-drawn vines; the globe is the one bold moment. */
+:root {
+  --paper: #f8f8f2;       /* garden white, leaning green */
+  --paper-2: #eef0e5;     /* pale sage wash */
+  --ink: #273024;         /* deep forest */
+  --ink-soft: #55604d;
+  --sage: #8b9b7a;
+  --moss: #4d5f3d;        /* primary accent */
+  --bark: #8a6748;        /* light brown */
+  --line: #d6dacb;
+  --ocean: #e3e8da;
+  --land: #b9c4a6;
+  --on-accent: #f8f8f2;
+  --display: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
+  --sans: "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
+  --step--1: 0.8rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.35rem;
+  --step-2: 1.9rem;
+  --step-3: clamp(2.3rem, 5vw, 3.2rem);
+  --step-4: clamp(3.2rem, 9vw, 6rem);
+  --radius: 2px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171c15; --paper-2: #1f261c; --ink: #e9ecdf; --ink-soft: #b3bba8;
+    --sage: #9fb08d; --moss: #b9cba3; --bark: #c9a684; --line: #343d2f;
+    --ocean: #1f2a24; --land: #4a5a3d; --on-accent: #171c15; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171c15; --paper-2: #1f261c; --ink: #e9ecdf; --ink-soft: #b3bba8;
+  --sage: #9fb08d; --moss: #b9cba3; --bark: #c9a684; --line: #343d2f;
+  --ocean: #1f2a24; --land: #4a5a3d; --on-accent: #171c15; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--display); font-size: var(--step-0); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-weight: 500; line-height: 1.1; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--bark); outline-offset: 3px; }
+
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+.eyebrow {
+  font-family: var(--sans); font-size: var(--step--1); letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--bark);
+}
+.script { font-family: var(--script); font-weight: 400; }
+
+/* ——— Nav ——— */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner { display: flex; align-items: center; gap: 20px; padding-block: 10px; }
+.nav-mark { font-family: var(--script); font-size: 1.7rem; text-decoration: none; color: var(--moss); line-height: 1; flex: none; }
+.nav-links {
+  display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; min-width: 0;
+  font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { text-decoration: none; color: var(--ink-soft); white-space: nowrap; padding-block: 6px; }
+.nav-links a:hover { color: var(--moss); }
+.nav-rsvp {
+  margin-left: auto; flex: none; font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.16em;
+  text-transform: uppercase; text-decoration: none; padding: 8px 16px;
+  border: 1px solid var(--moss); color: var(--moss); border-radius: var(--radius);
+}
+.nav-rsvp:hover { background: var(--moss); color: var(--on-accent); }
+@media (max-width: 640px) { .nav-rsvp { display: none; } }
+
+/* ——— Hero ——— */
+.hero { position: relative; text-align: center; padding-block: 56px 72px; overflow: hidden; }
+.vine { position: absolute; width: 260px; height: 260px; color: var(--sage); opacity: 0.55; pointer-events: none; }
+.vine.tl { top: -20px; left: -40px; }
+.vine.br { bottom: -30px; right: -40px; transform: rotate(180deg); }
+@media (max-width: 640px) { .vine { width: 170px; height: 170px; } }
+.monogram { width: min(230px, 62vw); margin: 0 auto 18px; color: var(--moss); }
+.monogram svg { width: 100%; height: auto; display: block; overflow: visible; }
+.hero .eyebrow { margin-bottom: 10px; }
+.hero-names { font-family: var(--script); font-size: clamp(2.4rem, 7vw, 3.6rem); color: var(--bark); line-height: 1.2; }
+.hero-title { font-size: var(--step-4); font-weight: 400; letter-spacing: 0.02em; margin-top: -4px; }
+.hero-title em { font-style: italic; color: var(--moss); }
+.hero-date {
+  margin-top: 18px; font-family: var(--sans); font-size: 0.92rem; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--ink-soft);
+  display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;
+}
+.hero-date .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
+.countdown { display: flex; justify-content: center; gap: clamp(14px, 4vw, 36px); margin-top: 34px; }
+.countdown div { display: grid; gap: 2px; min-width: 64px; }
+.countdown b { font-size: var(--step-3); font-weight: 400; font-variant-numeric: tabular-nums lining-nums; line-height: 1; }
+.countdown span { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+.hero-cta { margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 13px 22px; border-radius: var(--radius); text-decoration: none;
+  border: 1px solid var(--moss); background: var(--moss); color: var(--on-accent);
+  transition: background .2s, color .2s;
+}
+.btn:hover { background: var(--ink); border-color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--moss); }
+.btn.ghost:hover { background: var(--moss); color: var(--on-accent); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* ——— Sections ——— */
+section.block { padding-block: 84px; border-top: 1px solid var(--line); }
+section.tint { background: var(--paper-2); }
+.sec-head { text-align: center; max-width: 620px; margin: 0 auto 44px; display: grid; gap: 10px; }
+.sec-head h2 { font-size: var(--step-3); font-weight: 400; }
+.sec-head p { color: var(--ink-soft); }
+.sprig { width: 64px; height: 18px; margin: 0 auto; color: var(--sage); }
+.note {
+  font-family: var(--sans); font-size: 0.78rem; color: var(--ink-soft);
+  border: 1px dashed var(--line); padding: 8px 12px; border-radius: var(--radius);
+  display: inline-block; letter-spacing: 0.02em;
+}
+
+/* ——— Story carousel ——— */
+.story { position: relative; }
+.story-track {
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-block: 4px 18px; scrollbar-width: none;
+}
+.story-track::-webkit-scrollbar { display: none; }
+.story-card {
+  flex: 0 0 min(340px, 80%); scroll-snap-align: center; display: grid; gap: 14px;
+  transition: opacity .4s, transform .4s; opacity: .55;
+}
+.story-card.is-active { opacity: 1; }
+.ph {
+  aspect-ratio: 4 / 5; max-width: 100%; border-radius: var(--radius); position: relative; overflow: hidden;
+  display: grid; place-items: center; text-align: center; color: var(--ink-soft);
+  background:
+    radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--paper) 55%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--land), var(--sage));
+  border: 1px solid var(--line);
+}
+.ph.alt { background: radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--paper) 50%, transparent), transparent 60%), linear-gradient(160deg, color-mix(in srgb, var(--bark) 45%, var(--paper)), var(--land)); }
+.ph-label { display: grid; gap: 6px; justify-items: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); opacity: .7; }
+.ph-label svg { width: 26px; height: 26px; }
+.story-meta { display: grid; gap: 4px; }
+.story-meta .eyebrow { font-size: 0.72rem; }
+.story-meta h3 { font-size: var(--step-1); }
+.story-meta p { color: var(--ink-soft); font-size: 0.98rem; }
+.story-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 12px; }
+.icon-btn {
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper);
+  color: var(--ink); display: grid; place-items: center; cursor: pointer;
+}
+.icon-btn:hover { border-color: var(--moss); color: var(--moss); }
+.icon-btn svg { width: 18px; height: 18px; }
+.timeline { display: flex; gap: 0; align-items: center; }
+.timeline button {
+  position: relative; width: 44px; height: 24px; border: 0; background: none; cursor: pointer; padding: 0;
+}
+.timeline button::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.timeline button::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-radius: 50%;
+  transform: translate(-50%, -50%); background: var(--paper); border: 1px solid var(--sage); transition: all .3s;
+}
+.timeline button[aria-current="true"]::after { width: 12px; height: 12px; background: var(--moss); border-color: var(--moss); }
+
+/* ——— The Day ——— */
+.day-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.event {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 34px 28px; display: grid; gap: 12px; text-align: center; justify-items: center; min-width: 0;
+}
+.event h3 { font-size: var(--step-2); font-weight: 400; }
+.event dl { margin: 0; display: grid; gap: 6px; }
+.event dt { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bark); }
+.event dd { margin: 0 0 8px; }
+.attire { margin-top: 44px; display: grid; justify-items: center; gap: 14px; text-align: center; }
+.swatches { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.swatch { display: grid; gap: 6px; justify-items: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+.swatch i { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); display: block; }
+
+/* ——— Globe ——— */
+.where { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+@media (max-width: 820px) { .where { grid-template-columns: 1fr; } }
+.globe-box { position: relative; aspect-ratio: 1; max-width: 520px; width: 100%; margin: 0 auto; }
+.globe-box canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+.globe-box canvas:active { cursor: grabbing; }
+.globe-hint { position: absolute; inset: auto 0 -6px; text-align: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.where-card { display: grid; gap: 16px; }
+.where-card h3 { font-size: var(--step-3); font-weight: 400; }
+.coords { font-family: var(--sans); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--bark); font-variant-numeric: tabular-nums; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.cal-menu { display: grid; gap: 8px; }
+.cal-menu[hidden] { display: none; }
+.cal-menu a { font-family: var(--sans); font-size: 0.85rem; color: var(--moss); }
+
+/* ——— Forms ——— */
+.form-shell { max-width: 620px; margin: 0 auto; }
+form { display: grid; gap: 18px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field legend { font-family: var(--sans); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 560px) { .row-2 { grid-template-columns: 1fr; } }
+input[type="text"], input[type="email"], select, textarea {
+  width: 100%; font: inherit; font-size: 1.05rem; color: var(--ink);
+  background: var(--paper); border: 0; border-bottom: 1px solid var(--sage);
+  padding: 10px 2px; border-radius: 0;
+}
+section.tint input[type="text"], section.tint select, section.tint textarea { background: transparent; }
+input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--moss); box-shadow: 0 1px 0 0 var(--moss); }
+textarea { resize: vertical; min-height: 84px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.choices { display: flex; gap: 10px; flex-wrap: wrap; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice span {
+  display: inline-block; padding: 10px 18px; border: 1px solid var(--line); border-radius: var(--radius);
+  cursor: pointer; font-size: 1.02rem; background: var(--paper);
+}
+.choice input:checked + span { border-color: var(--moss); background: var(--moss); color: var(--on-accent); }
+.choice input:focus-visible + span { outline: 2px solid var(--bark); outline-offset: 2px; }
+.form-foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+.thanks { text-align: center; display: grid; gap: 10px; padding: 30px 0; }
+.thanks .script { font-size: 2.6rem; color: var(--bark); }
+
+/* ——— Photos ——— */
+.drop {
+  border: 1px dashed var(--sage); border-radius: var(--radius); padding: 38px 20px; text-align: center;
+  display: grid; gap: 10px; justify-items: center; cursor: pointer; background: var(--paper);
+  transition: background .2s, border-color .2s;
+}
+.drop.is-over { background: var(--paper-2); border-color: var(--moss); }
+.drop svg { width: 34px; height: 34px; color: var(--moss); }
+.drop strong { font-weight: 500; font-size: var(--step-1); }
+.drop span { font-family: var(--sans); font-size: 0.8rem; color: var(--ink-soft); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 22px; }
+.gallery figure { margin: 0; aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; position: relative; max-width: 100%; }
+.gallery figure .ph { aspect-ratio: 1; height: 100%; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery figcaption {
+  position: absolute; left: 8px; bottom: 8px; font-family: var(--sans); font-size: 0.65rem; letter-spacing: .14em;
+  text-transform: uppercase; background: var(--paper); color: var(--ink); padding: 3px 7px; border-radius: var(--radius);
+}
+
+/* ——— Songs ——— */
+.songs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+@media (max-width: 820px) { .songs { grid-template-columns: 1fr; } }
+.playlist { list-style: none; margin: 0; padding: 0; display: grid; }
+.playlist li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.playlist .n { font-family: var(--sans); font-size: 0.75rem; color: var(--bark); font-variant-numeric: tabular-nums; }
+.playlist .t { font-size: 1.12rem; overflow-wrap: anywhere; }
+.playlist .a { color: var(--ink-soft); font-style: italic; }
+.playlist .tag { font-family: var(--sans); font-size: 0.62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); border: 1px solid var(--line); padding: 2px 6px; border-radius: var(--radius); }
+.playlist-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 12px; }
+.playlist-head h3 { font-size: var(--step-2); font-weight: 400; }
+
+/* ——— Registry & FAQ ——— */
+.registry { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 760px; margin: 0 auto; }
+.reg { border: 1px solid var(--line); padding: 30px 24px; display: grid; gap: 8px; text-align: center; justify-items: center; background: var(--paper); border-radius: var(--radius); }
+.reg h3 { font-size: var(--step-1); }
+.reg p { color: var(--ink-soft); font-size: 0.98rem; }
+.faq { max-width: 720px; margin: 0 auto; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer; list-style: none; padding: 20px 0; font-size: var(--step-1);
+  display: flex; justify-content: space-between; gap: 16px; align-items: center;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--sans); color: var(--bark); font-size: 1.4rem; line-height: 1; transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 20px; color: var(--ink-soft); max-width: 62ch; }
+
+/* ——— Footer ——— */
+footer { padding-block: 64px 48px; text-align: center; border-top: 1px solid var(--line); display: grid; gap: 12px; justify-items: center; }
+footer .monogram { width: 120px; margin: 0; }
+footer .domain { font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* ——— Mockup switcher ——— */
+.switcher {
+  position: fixed; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 30;
+  background: var(--ink); color: var(--paper); border-radius: 999px; padding: 6px;
+  display: flex; gap: 4px; align-items: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: .08em;
+  box-shadow: 0 6px 24px rgba(0,0,0,.18);
+}
+.switcher span { padding-inline: 10px 4px; opacity: .75; text-transform: uppercase; letter-spacing: .14em; }
+.switcher button { font: inherit; border: 0; border-radius: 999px; padding: 7px 12px; cursor: pointer; background: transparent; color: var(--paper); }
+.switcher button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
+@media (max-width: 420px) { .switcher span { display: none; } }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<!-- Reusable symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-camera" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0113 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path stroke="currentColor" stroke-width="1.5" d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M12 15V4m0 0l-4 4m4-4l4 4M5 14v5h14v-5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path fill="none" stroke="currentColor" stroke-width="1.4" d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/></symbol>
+  <symbol id="sprig" viewBox="0 0 64 18"><path d="M2 9h60" stroke="currentColor" stroke-width="1"/><g fill="currentColor"><ellipse cx="22" cy="5.5" rx="5" ry="2" transform="rotate(-25 22 5.5)"/><ellipse cx="22" cy="12.5" rx="5" ry="2" transform="rotate(25 22 12.5)"/><ellipse cx="42" cy="5.5" rx="5" ry="2" transform="rotate(25 42 5.5)"/><ellipse cx="42" cy="12.5" rx="5" ry="2" transform="rotate(-25 42 12.5)"/><circle cx="32" cy="9" r="2.2"/></g></symbol>
+</svg>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="#home" aria-label="The Joneses, home">J</a>
+    <div class="nav-links">
+      <a href="#story">Our Story</a>
+      <a href="#day">The Day</a>
+      <a href="#where">Location</a>
+      <a href="#photos">Photos</a>
+      <a href="#songs">Songs</a>
+      <a href="#registry">Registry</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="nav-rsvp" href="#rsvp">RSVP</a>
+  </div>
+</nav>
+
+<main>
+<!-- ——— Hero ——— -->
+<header class="hero" id="home">
+  <svg class="vine tl" data-vine viewBox="0 0 260 260" aria-hidden="true"></svg>
+  <svg class="vine br" data-vine viewBox="0 0 260 260" aria-hidden="true"></svg>
+  <div class="wrap">
+    <div class="monogram" data-monogram role="img" aria-label="Tyler and Mia Jones monogram"></div>
+    <p class="eyebrow">Together with their families</p>
+    <p class="hero-names">Tyler &amp; Mia</p>
+    <h1 class="hero-title">are becoming <em>The Joneses</em></h1>
+    <p class="hero-date"><span>Saturday</span><i class="dot"></i><span>June 26, 2027</span><i class="dot"></i><span>Boise, Idaho</span></p>
+    <div class="countdown" aria-live="off" id="countdown">
+      <div><b id="cd-days">—</b><span>Days</span></div>
+      <div><b id="cd-hours">—</b><span>Hours</span></div>
+      <div><b id="cd-mins">—</b><span>Minutes</span></div>
+    </div>
+    <div class="hero-cta">
+      <a class="btn" href="#rsvp">RSVP</a>
+      <a class="btn ghost" href="#where"><svg><use href="#i-globe"/></svg>See where</a>
+    </div>
+  </div>
+</header>
+
+<!-- ——— Our Story ——— -->
+<section class="block tint" id="story">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>Our Story</h2>
+      <p>A few moments that brought us here.</p>
+    </div>
+    <div class="story">
+      <div class="story-track" id="storyTrack" tabindex="0" aria-label="Photo timeline"></div>
+      <div class="story-controls">
+        <button class="icon-btn" id="storyPrev" aria-label="Previous photo"><svg><use href="#i-left"/></svg></button>
+        <div class="timeline" id="storyDots" role="group" aria-label="Choose a moment"></div>
+        <button class="icon-btn" id="storyNext" aria-label="Next photo"><svg><use href="#i-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— The Day ——— -->
+<section class="block" id="day">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>The Day</h2>
+      <p>Saturday, June 26, 2027. Times and the venue will be posted here as soon as they're set.</p>
+    </div>
+    <div class="day-grid">
+      <article class="event">
+        <p class="eyebrow">First</p>
+        <h3>Ceremony</h3>
+        <dl>
+          <dt>When</dt><dd>June 26, 2027 · Time to come</dd>
+          <dt>Where</dt><dd>Boise, Idaho</dd>
+        </dl>
+      </article>
+      <article class="event">
+        <p class="eyebrow">Then</p>
+        <h3>Reception</h3>
+        <dl>
+          <dt>When</dt><dd>Following the ceremony</dd>
+          <dt>Where</dt><dd>Boise, Idaho</dd>
+        </dl>
+      </article>
+    </div>
+    <div class="attire">
+      <p class="eyebrow">What to wear</p>
+      <p>Garden attire in our colors. Final details to come.</p>
+      <div class="swatches">
+        <div class="swatch"><i style="background:#c2a283"></i>Light brown</div>
+        <div class="swatch"><i style="background:#1d1d1b"></i>Black</div>
+        <div class="swatch"><i style="background:#5f7151"></i>Green</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— Location ——— -->
+<section class="block tint" id="where">
+  <div class="wrap where">
+    <div class="globe-box">
+      <canvas id="globe" role="img" aria-label="A globe that turns and zooms in to Boise, Idaho"></canvas>
+      <p class="globe-hint" id="globeHint">Drag to spin</p>
+    </div>
+    <div class="where-card">
+      <p class="eyebrow">Where we'll be</p>
+      <h3>Boise, Idaho</h3>
+      <p class="coords">43.615° N · 116.202° W</p>
+      <p>The exact venue will be announced here. Out-of-town guests fly into Boise Airport (BOI).</p>
+      <div class="btn-row">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Boise%2C%20Idaho" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Get directions</a>
+        <button class="btn ghost" type="button" id="calBtn" aria-expanded="false" aria-controls="calMenu"><svg><use href="#i-cal"/></svg>Add to calendar</button>
+      </div>
+      <div class="cal-menu" id="calMenu" hidden>
+        <a target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Tyler%20%26%20Mia%27s%20Wedding&amp;dates=20270626/20270627&amp;location=Boise%2C%20Idaho&amp;details=Details%20at%20hellothejoneses.com">Google Calendar</a>
+        <a target="_blank" rel="noopener" href="https://outlook.live.com/calendar/0/action/compose?subject=Tyler%20%26%20Mia%27s%20Wedding&amp;startdt=2027-06-26&amp;enddt=2027-06-27&amp;allday=true&amp;location=Boise%2C%20Idaho&amp;body=Details%20at%20hellothejoneses.com">Outlook</a>
+        <a href="joneses-wedding.ics" download>Apple Calendar (.ics)</a>
+      </div>
+      <button class="btn ghost" type="button" id="replay" style="justify-self:start">Replay the zoom</button>
+    </div>
+  </div>
+</section>
+
+<!-- ——— RSVP ——— -->
+<section class="block" id="rsvp">
+  <div class="wrap form-shell">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>RSVP</h2>
+      <p>We're keeping it small, about 40 of our favorite people. Let us know if you can make it.</p>
+    </div>
+    <form id="rsvpForm" novalidate>
+      <div class="row-2">
+        <div class="field"><label for="rsvp-name">Your name</label><input type="text" id="rsvp-name" required autocomplete="name"></div>
+        <div class="field"><label for="rsvp-email">Email</label><input type="email" id="rsvp-email" autocomplete="email"></div>
+      </div>
+      <fieldset>
+        <legend>Will you join us?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="attend" id="attend-yes" value="yes" checked><span>Joyfully accepts</span></label>
+          <label class="choice"><input type="radio" name="attend" id="attend-no" value="no"><span>Regretfully declines</span></label>
+        </div>
+      </fieldset>
+      <div class="row-2">
+        <div class="field"><label for="rsvp-count">Number attending</label>
+          <select id="rsvp-count"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+        </div>
+        <div class="field"><label for="rsvp-diet">Dietary needs</label><input type="text" id="rsvp-diet" placeholder="Optional"></div>
+      </div>
+      <div class="field"><label for="rsvp-note">A note for Tyler &amp; Mia</label><textarea id="rsvp-note" placeholder="Optional"></textarea></div>
+      <div class="form-foot">
+        <span class="note">Preview: replies will save to your RSVP sheet once the site is live.</span>
+        <button class="btn" type="submit">Send RSVP</button>
+      </div>
+    </form>
+    <div class="thanks" id="rsvpThanks" hidden>
+      <p class="script">Thank you</p>
+      <p id="rsvpThanksMsg"></p>
+      <button class="btn ghost" type="button" id="rsvpAgain" style="justify-self:center">Edit reply</button>
+    </div>
+  </div>
+</section>
+
+<!-- ——— Photos ——— -->
+<section class="block tint" id="photos">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>Share Your Photos</h2>
+      <p>Took a good one? Add it here so everything ends up in one album.</p>
+    </div>
+    <label class="drop" id="drop" for="photoInput">
+      <svg><use href="#i-upload"/></svg>
+      <strong>Drop photos here or tap to choose</strong>
+      <span>JPG, PNG or HEIC · as many as you like</span>
+    </label>
+    <input type="file" id="photoInput" accept="image/*" multiple hidden>
+    <div class="gallery" id="gallery"></div>
+    <p style="text-align:center;margin-top:18px"><span class="note">Preview: photos stay on your device for now. At launch they'll go to a shared album.</span></p>
+  </div>
+</section>
+
+<!-- ——— Songs ——— -->
+<section class="block" id="songs">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>Request a Song</h2>
+      <p>Tell us what gets you on the dance floor. We'll pass the list to the DJ.</p>
+    </div>
+    <div class="songs">
+      <form id="songForm">
+        <div class="field"><label for="song-title">Song</label><input type="text" id="song-title" required></div>
+        <div class="field"><label for="song-artist">Artist</label><input type="text" id="song-artist" required></div>
+        <div class="field"><label for="song-from">Requested by</label><input type="text" id="song-from" placeholder="Optional"></div>
+        <div><button class="btn" type="submit">Add to the playlist</button></div>
+      </form>
+      <div>
+        <div class="playlist-head"><h3>The playlist</h3><span class="eyebrow" id="songCount"></span></div>
+        <ol class="playlist" id="playlist"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— Registry ——— -->
+<section class="block tint" id="registry">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>Registry</h2>
+      <p>Your being there is the gift. For those who've asked, here's where to look.</p>
+    </div>
+    <div class="registry">
+      <div class="reg"><p class="eyebrow">Registry</p><h3>For our home</h3><p>Link coming soon.</p></div>
+      <div class="reg"><p class="eyebrow">Honeymoon fund</p><h3>For the trip after</h3><p>Link coming soon.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— FAQ ——— -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <svg class="sprig"><use href="#sprig"/></svg>
+      <h2>Questions</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Where is the wedding?</summary><p>Boise, Idaho. We'll post the exact venue on this site as soon as it's booked.</p></details>
+      <details><summary>What should I wear?</summary><p>Garden attire. We're leaning toward light brown, black and green, so feel free to work those in. We'll confirm closer to the date.</p></details>
+      <details><summary>When do I need to RSVP?</summary><p>We'll share the reply date here soon. Replying early helps us plan for our 40 guests.</p></details>
+      <details><summary>Where do I share photos from the day?</summary><p>Use the Share Your Photos section above. Everything lands in one album we can all enjoy afterward.</p></details>
+      <details><summary>Can I request a song?</summary><p>Yes, please. Add it to the playlist above and we'll pass it along to the DJ.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="monogram" data-monogram-alt role="img" aria-label="Tyler and Mia Jones monogram"></div>
+  <p class="hero-names" style="font-size:2rem">Tyler &amp; Mia</p>
+  <p class="domain">hellothejoneses.com · 06.26.2027</p>
+</footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function () {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const NS = "http://www.w3.org/2000/svg";
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  /* ——— Monograms ——— */
+  function leaves(cx, cy, r, from, to, n, mirror) {
+    let out = "";
+    for (let i = 0; i < n; i++) {
+      const t = i / (n - 1);
+      const a = (from + (to - from) * t) * Math.PI / 180;
+      let x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      const side = i % 2 ? 1 : -1;
+      const tangent = (from + (to - from) * t) + 90;
+      const tilt = tangent + side * 38;
+      const off = 5 * side;
+      x += off * Math.cos(a); y += off * Math.sin(a);
+      const size = 1 - t * 0.45;
+      if (mirror) x = cx * 2 - x;
+      const rot = mirror ? 180 - tilt : tilt;
+      out += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${(10 * size).toFixed(1)}" ry="${(3.8 * size).toFixed(1)}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+    }
+    return out;
+  }
+  function crestSVG() {
+    const stem = (m) => {
+      const p = (deg) => { const a = deg * Math.PI / 180; let x = 120 + 96 * Math.cos(a), y = 120 + 96 * Math.sin(a); if (m) x = 240 - x; return [x.toFixed(1), y.toFixed(1)]; };
+      const [x1, y1] = p(100), [x2, y2] = p(245);
+      return `<path d="M${x1} ${y1} A96 96 0 0 ${m ? 0 : 1} ${x2} ${y2}" fill="none" stroke="currentColor" stroke-width="1.2"/>`;
+    };
+    return `<svg viewBox="0 0 240 250" xmlns="${NS}">
+      ${stem(false)}${stem(true)}
+      <g fill="currentColor" opacity=".9">${leaves(120, 120, 96, 100, 245, 15, false)}${leaves(120, 120, 96, 100, 245, 15, true)}</g>
+      <circle cx="120" cy="218" r="3" fill="var(--bark)"/>
+      <text x="120" y="160" text-anchor="middle" font-family="Cormorant Garamond, Garamond, serif" font-style="italic" font-size="126" fill="currentColor">J</text>
+      <text x="70" y="136" text-anchor="middle" font-family="Cormorant Garamond, Garamond, serif" font-size="30" letter-spacing="2" fill="var(--bark)">T</text>
+      <text x="170" y="136" text-anchor="middle" font-family="Cormorant Garamond, Garamond, serif" font-size="30" letter-spacing="2" fill="var(--bark)">M</text>
+      <text x="120" y="246" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" letter-spacing="5" fill="var(--ink-soft)">EST · MMXXVII</text>
+    </svg>`;
+  }
+  function interlockSVG() {
+    return `<svg viewBox="0 0 240 250" xmlns="${NS}">
+      <path d="M44 232 V108 A76 76 0 0 1 196 108 V232" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M54 232 V110 A66 66 0 0 1 186 110 V232" fill="none" stroke="currentColor" stroke-width=".7" opacity=".6"/>
+      <g fill="currentColor" opacity=".85">${leaves(120, 108, 76, 205, 255, 6, false)}${leaves(120, 108, 76, 205, 255, 6, true)}</g>
+      <text x="104" y="172" text-anchor="middle" font-family="Cormorant Garamond, Garamond, serif" font-size="112" fill="currentColor">T</text>
+      <text x="140" y="180" text-anchor="middle" font-family="Cormorant Garamond, Garamond, serif" font-style="italic" font-size="112" fill="none" stroke="var(--bark)" stroke-width="1.6">M</text>
+      <line x1="72" y1="204" x2="168" y2="204" stroke="currentColor" stroke-width=".8"/>
+      <text x="120" y="224" text-anchor="middle" font-family="Jost, sans-serif" font-size="13" letter-spacing="7" fill="currentColor">JONESES</text>
+    </svg>`;
+  }
+  document.querySelector("[data-monogram]").innerHTML = crestSVG();
+  document.querySelector("[data-monogram-alt]").innerHTML = crestSVG();
+
+  /* ——— Corner vines ——— */
+  document.querySelectorAll("[data-vine]").forEach(svg => {
+    let g = `<path d="M10 250 C 40 170, 90 120, 250 10" fill="none" stroke="currentColor" stroke-width="1.2"/>`;
+    for (let i = 1; i < 13; i++) {
+      const t = i / 13, x = 10 + 240 * t, y = 250 - 240 * Math.pow(t, 0.8);
+      const s = i % 2 ? 1 : -1, ang = -45 + s * 45;
+      g += `<ellipse cx="${(x + s * 6).toFixed(1)}" cy="${(y + s * 4).toFixed(1)}" rx="${11 - t * 5}" ry="${4 - t * 1.5}" fill="currentColor" transform="rotate(${ang} ${(x + s * 6).toFixed(1)} ${(y + s * 4).toFixed(1)})"/>`;
+    }
+    g += `<circle cx="70" cy="168" r="4" fill="var(--bark)" opacity=".7"/><circle cx="160" cy="80" r="3" fill="var(--bark)" opacity=".7"/>`;
+    svg.innerHTML = g;
+  });
+
+  /* ——— Countdown ——— */
+  const target = new Date("2027-06-26T00:00:00-06:00").getTime();
+  function tick() {
+    let d = Math.max(0, target - Date.now());
+    const days = Math.floor(d / 864e5); d -= days * 864e5;
+    const hrs = Math.floor(d / 36e5); d -= hrs * 36e5;
+    const mins = Math.floor(d / 6e4);
+    document.getElementById("cd-days").textContent = days;
+    document.getElementById("cd-hours").textContent = String(hrs).padStart(2, "0");
+    document.getElementById("cd-mins").textContent = String(mins).padStart(2, "0");
+  }
+  tick(); setInterval(tick, 30000);
+
+  /* ——— Story carousel ——— */
+  const moments = [
+    { when: "The beginning", title: "Where it started", text: "How we met. Story and photo coming soon.", alt: false },
+    { when: "Early days", title: "Our first date", text: "The night we knew this was something.", alt: true },
+    { when: "Along the way", title: "Adventures together", text: "A few favorites from the trips and the ordinary days.", alt: false },
+    { when: "July 2026", title: "The proposal", text: "Fourth of July weekend. She said yes.", alt: true },
+    { when: "June 26, 2027", title: "Becoming the Joneses", text: "Boise, Idaho. We can't wait to celebrate with you.", alt: false }
+  ];
+  const track = document.getElementById("storyTrack");
+  const dots = document.getElementById("storyDots");
+  moments.forEach((m, i) => {
+    const card = document.createElement("article");
+    card.className = "story-card";
+    card.innerHTML = `<div class="ph ${m.alt ? "alt" : ""}"><span class="ph-label"><svg><use href="#i-camera"/></svg>Photo coming soon</span></div>
+      <div class="story-meta"><p class="eyebrow">${m.when}</p><h3>${m.title}</h3><p>${m.text}</p></div>`;
+    track.appendChild(card);
+    const dot = document.createElement("button");
+    dot.type = "button"; dot.setAttribute("aria-label", m.title);
+    dot.addEventListener("click", () => { go(i); restart(); });
+    dots.appendChild(dot);
+  });
+  const cards = [...track.children];
+  let idx = 0, timer = null;
+  function setActive(i) {
+    idx = i;
+    cards.forEach((c, j) => c.classList.toggle("is-active", j === i));
+    [...dots.children].forEach((d, j) => d.setAttribute("aria-current", String(j === i)));
+  }
+  function go(i) {
+    i = (i + cards.length) % cards.length;
+    const c = cards[i];
+    track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.clientWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+    setActive(i);
+  }
+  let scrollT;
+  track.addEventListener("scroll", () => {
+    clearTimeout(scrollT);
+    scrollT = setTimeout(() => {
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, bd = Infinity;
+      cards.forEach((c, j) => { const d = Math.abs(c.offsetLeft + c.clientWidth / 2 - mid); if (d < bd) { bd = d; best = j; } });
+      setActive(best);
+    }, 80);
+  }, { passive: true });
+  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => go(idx + 1), 5000); }
+  document.getElementById("storyPrev").addEventListener("click", () => { go(idx - 1); restart(); });
+  document.getElementById("storyNext").addEventListener("click", () => { go(idx + 1); restart(); });
+  track.addEventListener("mouseenter", () => clearInterval(timer));
+  track.addEventListener("mouseleave", restart);
+  track.addEventListener("keydown", e => { if (e.key === "ArrowRight") { go(idx + 1); restart(); } if (e.key === "ArrowLeft") { go(idx - 1); restart(); } });
+  setActive(0); requestAnimationFrame(() => go(0)); restart();
+
+  /* ——— Calendar menu ——— */
+  const calBtn = document.getElementById("calBtn"), calMenu = document.getElementById("calMenu");
+  calBtn.addEventListener("click", () => { calMenu.hidden = !calMenu.hidden; calBtn.setAttribute("aria-expanded", String(!calMenu.hidden)); });
+
+  /* ——— Globe ——— */
+  const BOISE = [-116.2023, 43.6150];
+  const canvas = document.getElementById("globe");
+  const ctx = canvas.getContext("2d");
+  const projection = d3.geoOrthographic().clipAngle(90).precision(0.6);
+  const path = d3.geoPath(projection, ctx);
+  const graticule = d3.geoGraticule10();
+  let land = null, borders = null, states = null;
+  let base = 200, k = 1, rot = [20, -15, 0], mode = "spin", pulse = 0, size = 400;
+  let colors = {};
+  function readColors() {
+    colors = { ocean: css("--ocean"), land: css("--land"), line: css("--paper"), ink: css("--ink"), bark: css("--bark"), moss: css("--moss"), grat: css("--line") };
+  }
+  readColors();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readColors);
+  new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    size = r.width || 400;
+    canvas.width = size * dpr; canvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    base = size / 2 - 12;
+  }
+  function draw() {
+    projection.translate([size / 2, size / 2]).scale(base * k).rotate(rot);
+    ctx.clearRect(0, 0, size, size);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(size / 2, size / 2, Math.min(base * k, size * 2), 0, Math.PI * 2); ctx.closePath();
+    // ocean
+    ctx.beginPath(); path({ type: "Sphere" }); ctx.fillStyle = colors.ocean; ctx.fill();
+    ctx.beginPath(); path(graticule); ctx.strokeStyle = colors.grat; ctx.lineWidth = 0.6; ctx.stroke();
+    if (land) {
+      ctx.beginPath(); path(land); ctx.fillStyle = colors.land; ctx.fill();
+      ctx.beginPath(); path(borders); ctx.strokeStyle = colors.line; ctx.lineWidth = 0.7; ctx.stroke();
+    }
+    if (states && k > 1.8) {
+      ctx.globalAlpha = Math.min(1, (k - 1.8) / 2);
+      ctx.beginPath(); path(states); ctx.strokeStyle = colors.line; ctx.lineWidth = 1; ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    ctx.beginPath(); path({ type: "Sphere" }); ctx.strokeStyle = colors.moss; ctx.lineWidth = 1; ctx.stroke();
+    // Boise marker
+    const center = projection.invert([size / 2, size / 2]);
+    if (d3.geoDistance(BOISE, center) < Math.PI / 2 - 0.05) {
+      const [x, y] = projection(BOISE);
+      const show = mode === "spin" ? 0.6 : 1;
+      ctx.globalAlpha = show;
+      const pr = 6 + (pulse % 1) * 18;
+      ctx.beginPath(); ctx.arc(x, y, pr, 0, Math.PI * 2); ctx.strokeStyle = colors.bark; ctx.lineWidth = 1.5;
+      ctx.globalAlpha = show * (1 - (pulse % 1)); ctx.stroke(); ctx.globalAlpha = show;
+      ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fillStyle = colors.bark; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.fillStyle = colors.ocean; ctx.fill();
+      if (k > 3) {
+        ctx.globalAlpha = Math.min(1, (k - 3) / 2);
+        ctx.font = `italic 500 ${Math.round(size / 17)}px "Cormorant Garamond", Garamond, serif`;
+        ctx.fillStyle = colors.ink; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+        ctx.fillText("Boise", x + 14, y - 2);
+        ctx.font = `500 ${Math.round(size / 40)}px Jost, sans-serif`;
+        ctx.fillStyle = colors.bark;
+        ctx.fillText("IDAHO", x + 16, y + size / 26);
+      }
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+  function loop() {
+    if (mode === "spin") rot[0] = (rot[0] + 0.18) % 360;
+    pulse += 0.012;
+    draw();
+    requestAnimationFrame(loop);
+  }
+  function flyToBoise() {
+    if (!land) return;
+    mode = "fly";
+    document.getElementById("globeHint").textContent = "Boise, Idaho";
+    const target = [-BOISE[0], -BOISE[1], 0];
+    let start = rot.slice();
+    // take the short way around
+    start[0] = ((start[0] - target[0] + 540) % 360) - 180 + target[0];
+    if (reduce) { rot = target; k = 9; mode = "rest"; return; }
+    const ri = d3.interpolate(start, target);
+    const t0 = performance.now(), T1 = 2200, T2 = 2000;
+    const ease = d3.easeCubicInOut;
+    k = 1;
+    (function step(now) {
+      const e = now - t0;
+      if (e < T1) { rot = ri(ease(e / T1)); }
+      else if (e < T1 + T2) { rot = target; k = 1 + 8 * ease((e - T1) / T2); }
+      else { rot = target; k = 9; mode = "rest"; return; }
+      requestAnimationFrame(step);
+    })(t0);
+  }
+  function resetGlobe() { k = 1; mode = "spin"; document.getElementById("globeHint").textContent = "Drag to spin"; }
+
+  // drag to rotate
+  let drag = null;
+  canvas.addEventListener("pointerdown", e => { if (mode === "fly") return; drag = { x: e.clientX, y: e.clientY, r: rot.slice() }; canvas.setPointerCapture(e.pointerId); if (mode === "spin") mode = "drag"; });
+  canvas.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const s = 0.35 / k;
+    rot = [drag.r[0] + (e.clientX - drag.x) * s, Math.max(-80, Math.min(80, drag.r[1] - (e.clientY - drag.y) * s)), 0];
+  });
+  canvas.addEventListener("pointerup", () => { drag = null; if (mode === "drag") mode = "spin"; });
+
+  document.getElementById("replay").addEventListener("click", () => {
+    resetGlobe();
+    rot = [rot[0] + 120, -10, 0];
+    setTimeout(flyToBoise, reduce ? 0 : 900);
+  });
+
+  resize(); addEventListener("resize", () => { resize(); });
+  Promise.all([
+    fetch("data/countries-110m.json").then(r => r.json()),
+    fetch("data/states-10m.json").then(r => r.json())
+  ]).then(([world, us]) => {
+    land = topojson.feature(world, world.objects.land);
+    borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+    states = topojson.mesh(us, us.objects.states, (a, b) => a !== b);
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting && mode === "spin") { setTimeout(flyToBoise, reduce ? 0 : 900); io.disconnect(); } });
+    }, { threshold: 0.5 });
+    io.observe(canvas);
+  }).catch(() => { document.getElementById("globeHint").textContent = "Map couldn't load"; });
+  loop();
+
+  /* ——— RSVP ——— */
+  const rsvp = document.getElementById("rsvpForm"), thanks = document.getElementById("rsvpThanks");
+  rsvp.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("rsvp-name");
+    if (!name.value.trim()) { name.focus(); name.setAttribute("aria-invalid", "true"); name.placeholder = "Please add your name"; return; }
+    name.removeAttribute("aria-invalid");
+    const yes = document.getElementById("attend-yes").checked;
+    const n = document.getElementById("rsvp-count").value;
+    document.getElementById("rsvpThanksMsg").textContent = yes
+      ? `We've got you down for ${n}, ${name.value.trim().split(" ")[0]}. See you in Boise on June 26.`
+      : `We'll miss you, ${name.value.trim().split(" ")[0]}. Thank you for letting us know.`;
+    rsvp.hidden = true; thanks.hidden = false;
+  });
+  document.getElementById("rsvpAgain").addEventListener("click", () => { thanks.hidden = true; rsvp.hidden = false; });
+
+  /* ——— Photos ——— */
+  const gallery = document.getElementById("gallery"), drop = document.getElementById("drop"), input = document.getElementById("photoInput");
+  for (let i = 0; i < 4; i++) {
+    const f = document.createElement("figure");
+    f.innerHTML = `<div class="ph ${i % 2 ? "alt" : ""}"><span class="ph-label"><svg><use href="#i-camera"/></svg></span></div><figcaption>Example</figcaption>`;
+    gallery.appendChild(f);
+  }
+  function addFiles(files) {
+    [...files].filter(f => f.type.startsWith("image/")).forEach(file => {
+      const url = URL.createObjectURL(file);
+      const f = document.createElement("figure");
+      f.innerHTML = `<img alt="Shared photo">`;
+      f.querySelector("img").src = url;
+      gallery.prepend(f);
+    });
+  }
+  input.addEventListener("change", () => addFiles(input.files));
+  ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("is-over"); }));
+  ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("is-over"); }));
+  drop.addEventListener("drop", e => addFiles(e.dataTransfer.files));
+
+  /* ——— Songs ——— */
+  const songs = [
+    { t: "September", a: "Earth, Wind & Fire", ex: true },
+    { t: "Can't Help Falling in Love", a: "Elvis Presley", ex: true },
+    { t: "Mr. Brightside", a: "The Killers", ex: true }
+  ];
+  const list = document.getElementById("playlist");
+  function renderSongs() {
+    list.innerHTML = "";
+    songs.forEach((s, i) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="n">${String(i + 1).padStart(2, "0")}</span><span><span class="t"></span> <span class="a"></span></span><span>${s.ex ? '<span class="tag">Example</span>' : ""}</span>`;
+      li.querySelector(".t").textContent = s.t;
+      li.querySelector(".a").textContent = "— " + s.a + (s.by ? ` · for ${s.by}` : "");
+      list.appendChild(li);
+    });
+    document.getElementById("songCount").textContent = songs.length + " songs";
+  }
+  renderSongs();
+  document.getElementById("songForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const t = document.getElementById("song-title"), a = document.getElementById("song-artist"), by = document.getElementById("song-from");
+    if (!t.value.trim() || !a.value.trim()) { (t.value.trim() ? a : t).focus(); return; }
+    songs.unshift({ t: t.value.trim(), a: a.value.trim(), by: by.value.trim() });
+    t.value = ""; a.value = ""; by.value = "";
+    renderSongs();
+  });
+})();
+</script>
+</body>
+</html>
